@@ -13,6 +13,6 @@ const urlsRouter = express.Router();
 urlsRouter.post('/urls/shorten', validateToken, shortener);
 urlsRouter.get('/urls/:id', getURL);
 urlsRouter.get('/urls/open/:shortUrl', openURL);
-urlsRouter.delete('/urls/:id', validateToken, deleteURL); //NAO IMPLEMENTADO
+urlsRouter.delete('/urls/:id', validateToken, deleteURL); 
 
 export default urlsRouter;
