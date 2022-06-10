@@ -2,16 +2,16 @@ import pg from 'pg';
 
 const { Poll } = pg;
 
-const dbConfig = {
+const databaseConfig = {
   connectionString: process.env.DATABASE_URL
 };
 
 if(process.env.MODE === "PROD"){
-  dbConfig.ssl = {
+  databaseConfig.ssl = {
     rejectUnauthorized: false
   }
 }
 
-const db = new Pool(dbConfig);
+const db = new Pool(databaseConfig);
 
 export default db; 
