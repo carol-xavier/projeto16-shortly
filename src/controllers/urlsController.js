@@ -73,7 +73,7 @@ export const openURL = async (req, res) => {
             WHERE "shortUrl" = $1`, [shortUrl]
         );
 
-        res.status(200).redirect(result.rows[0].longUrl);
+        res.status(200).redirect(result.rows[0].longUrl); //redirect dando ERRO agora
 
     } catch (error) {
         return res.status(404).send("URL not saved");
