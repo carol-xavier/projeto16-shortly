@@ -11,13 +11,13 @@ export const validateUserSignUp = async (req, res, next) => {
     };
 
     if (user.password !== user.confirmPassword) {
-        return res.status(422).send("Confirmação de senha incorreta");
+        return res.status(422).send("Incorrect password confirmation");
     };
 
     try {
         const result = await db.query('SELECT id FROM users WHERE email = $1', [user.email]);
         if (result.rowCount > 0) {
-            return res.status(422).send("Usuário já cadastrado");
+            return res.status(422).send("E-mail already registered");
         };
     } catch (error) {
         return res.status(500).send(error);

@@ -2,13 +2,14 @@ import db from '../config/db.js';
 
 export const getUser = async (req,res) => {
     const {id} = req.params;
-    // const {email} = res.locals.session;
-    // console.log(email);
+    const {email} = res.locals.session;
+
     try{
         const result = await db.query(`
             SELECT * FROM users WHERE id = $1`, [id]
         );
-        if(result.rowCount === 0) {return res.status(404).send("User does not exist")};
+        if(result.rowCount === 0) return res.status(404).send("User does not exist");
+        if(result.rows[0].email !== email) return res.status(401).send("Permission denied");
         
         const count = await db.query(`
             SELECT "name", "visitCount" as count
