@@ -1,7 +1,7 @@
 import db from './../config/db.js';
 import userSignUpSchema from '../schemas/signupSchema.js';
 
-export const validateUserSignUp = async (req,res, next) => {
+export const validateUserSignUp = async (req, res, next) => {
     const user = req.body;
 
     const validation = userSignUpSchema.validate(user, { abortEarly: false });
@@ -9,17 +9,17 @@ export const validateUserSignUp = async (req,res, next) => {
     if (validation.error) {
         return res.status(422).send(validation.error.details);
     };
-    
-    if(user.password !== user.confirmPassword){
+
+    if (user.password !== user.confirmPassword) {
         return res.status(422).send("Confirmação de senha incorreta");
     };
 
-    try{
+    try {
         const result = await db.query('SELECT id FROM users WHERE email = $1', [user.email]);
         if (result.rowCount > 0) {
-          return res.status(422).send("Usuário já cadastrado");
+            return res.status(422).send("Usuário já cadastrado");
         };
-    }catch(error){
+    } catch (error) {
         return res.status(500).send(error);
     };
 
