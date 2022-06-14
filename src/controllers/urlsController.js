@@ -8,7 +8,7 @@ export const shortener = async (req, res) => {
     const { email } = res.locals.session;
 
     const urlSchema = joi.object({
-        url: joi.string().required()
+        url: joi.string().uri().required()
     });
     const validation = urlSchema.validate(url, { abortEarly: false });
     if (validation.error) {

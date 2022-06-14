@@ -17,7 +17,7 @@ export const validateUserSignUp = async (req, res, next) => {
     try {
         const result = await db.query('SELECT id FROM users WHERE email = $1', [user.email]);
         if (result.rowCount > 0) {
-            return res.status(422).send("E-mail already registered");
+            return res.status(409).send("E-mail already registered");
         };
     } catch (error) {
         return res.status(500).send(error);
